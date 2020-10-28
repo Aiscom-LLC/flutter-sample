@@ -9,7 +9,7 @@ class PokeListBloc extends Bloc<PokeListEvent, PokeListState> {
     @required PokemonsRepository pokemonsRepository,
   }) :  assert(pokemonsRepository != null),
         _pokemonsRepository = pokemonsRepository,
-        super(PokeListState(isLoading: false));
+        super(PokeListState(isLoading: false, pokemons: []));
 
   final PokemonsRepository _pokemonsRepository;
 
@@ -24,6 +24,7 @@ class PokeListBloc extends Bloc<PokeListEvent, PokeListState> {
       LoadPokemons event, PokeListState state) async* {
     yield state.copyWith(isLoading: true);
     var pokemons = await _pokemonsRepository.getPokemonsList();
-    yield state.copyWith(isLoading: false, pokemons: pokemons);
+    yield state.copyWith(isLoading: false,
+        pokemons: state.pokemons..addAll(pokemons));
   }
 }
