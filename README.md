@@ -1,4 +1,4 @@
-# sample
+# Sample
 
 Just a sample application
 
